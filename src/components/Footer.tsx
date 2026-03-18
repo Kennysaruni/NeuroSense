@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import logoWhite from '../assets/Neurosciencewhitelogo.svg';
 
 export default function Footer() {
   return (
@@ -6,14 +7,15 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-brand-blue rounded-lg flex items-center justify-center text-white font-bold text-xl">
-                N
-              </div>
-              <span className="font-bold text-xl text-white">NeuroSense Africa</span>
+            <div className="relative h-16 w-full mb-6 z-10">
+              <img 
+                src={logoWhite} 
+                alt="NeuroSense Africa" 
+                className="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-4 h-64 w-64 max-w-none" 
+              />
             </div>
             <p className="text-sm text-slate-400 max-w-md">
-              Supporting children with neurodevelopmental differences across Africa. 
+              Supporting children with neurodevelopmental differences across Africa.
               Providing resources for schools, caregivers, and children.
             </p>
           </div>

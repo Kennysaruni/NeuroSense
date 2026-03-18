@@ -1,5 +1,6 @@
 import { ArrowLeft, PlayCircle, PauseCircle } from 'lucide-react';
 import { useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 
 const topicsData = {
   'autism': {
@@ -84,7 +85,8 @@ const topicsData = {
   }
 };
 
-export default function Topic({ topicId }: { topicId: string }) {
+export default function Topic() {
+  const { topicId } = useParams<{topicId: string}>();
   const topic = topicId ? topicsData[topicId as keyof typeof topicsData] : null;
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -93,7 +95,7 @@ export default function Topic({ topicId }: { topicId: string }) {
       <div className="min-h-screen flex items-center justify-center bg-slate-50">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-slate-900 mb-4">Topic not found</h2>
-          <a href="#/library" className="text-brand-blue hover:underline">Return to Library</a>
+          <Link to="/library" className="text-brand-blue hover:underline">Return to Library</Link>
         </div>
       </div>
     );
@@ -108,10 +110,10 @@ export default function Topic({ topicId }: { topicId: string }) {
     <div className="bg-slate-50 min-h-screen py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <a href="#/library" className="inline-flex items-center text-slate-500 hover:text-brand-blue transition-colors font-medium">
+          <Link to="/library" className="inline-flex items-center text-slate-500 hover:text-brand-blue transition-colors font-medium">
             <ArrowLeft className="w-5 h-5 mr-2" />
             Back to Library
-          </a>
+          </Link>
         </div>
 
         <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
