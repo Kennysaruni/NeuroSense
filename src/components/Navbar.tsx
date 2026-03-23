@@ -21,7 +21,7 @@ export default function Navbar() {
           {/* Desktop menu */}
           <nav className="hidden md:flex items-center space-x-10">
             <Link to="/" className="text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 px-3 py-2 rounded-lg font-medium transition-all">Home</Link>
-            <Link to="/library" library="text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 px-3 py-2 rounded-lg font-medium transition-all">Library</Link>
+            <Link to="/library" className="text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 px-3 py-2 rounded-lg font-medium transition-all">Library</Link>
             <Link to="/activity" className="text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 px-3 py-2 rounded-lg font-medium transition-all">Speech Practice</Link>
             <a href="#early-access" className="bg-brand-blue text-white px-7 py-2.5 rounded-full font-medium shadow-[0_4px_14px_0_rgba(26,93,173,0.39)] hover:shadow-[0_6px_20px_rgba(26,93,173,0.23)] hover:bg-blue-800 hover:-translate-y-0.5 transition-all duration-300">
               Early Access
@@ -42,7 +42,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white border-t border-slate-100">
+        <div className="md:hidden bg-white border-t border-slate-100 relative z-20">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <Link
               to="/"
