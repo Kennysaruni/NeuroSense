@@ -37,40 +37,24 @@ export default function Activity() {
 
   const playAudio = () => {
     if (isPlaying) return;
-    setIsPlaying(true);
+    
+    if ('speechSynthesis' in window) {
+      setIsPlaying(true);
+      const utterance = new SpeechSynthesisUtterance(currentWord.word);
+      utterance.rate = 0.85;
 
-
-    const audio = new Audio(`/${currentWord.audio}`);
-
-    audio.onended = () => {
-      setIsPlaying(false);
-      setShowEncouragement(true);
-      setTimeout(() => setShowEncouragement(false), 3000);
-    };
-
-    audio.onerror = () => {
-
-      if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(currentWord.word);
-        utterance.rate = 0.85;
-
-        utterance.onend = () => {
-          setIsPlaying(false);
-          setShowEncouragement(true);
-          setTimeout(() => setShowEncouragement(false), 3000);
-        };
-
-        utterance.onerror = () => setIsPlaying(false);
-
-        window.speechSynthesis.speak(utterance);
-      } else {
+      utterance.onend = () => {
         setIsPlaying(false);
-      }
-    };
+        setShowEncouragement(true);
+        setTimeout(() => setShowEncouragement(false), 3000);
+      };
 
-    audio.play().catch(() => {
-      audio.dispatchEvent(new Event('error'));
-    });
+      utterance.onerror = () => setIsPlaying(false);
+
+      window.speechSynthesis.speak(utterance);
+    } else {
+      console.warn("Speech synthesis is not supported in this browser.");
+    }
   };
 
   const nextWord = () => {
