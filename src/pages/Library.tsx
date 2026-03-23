@@ -1,5 +1,5 @@
 import { Brain, Activity, MessageSquare, BookOpenCheck } from 'lucide-react';
-
+import { Link } from 'react-router-dom';
 const topics = [
   {
     id: 'autism',
@@ -53,9 +53,9 @@ export default function Library() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {topics.map((topic) => (
-            <a 
+            <Link 
               key={topic.id} 
-              href={`#/library/${topic.id}`}
+              to={`/library/${topic.id}`}
               className="group bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full"
             >
               <div className="flex items-start gap-6 mb-6">
@@ -75,7 +75,7 @@ export default function Library() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

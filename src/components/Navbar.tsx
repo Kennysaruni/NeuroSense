@@ -21,8 +21,8 @@ export default function Navbar() {
           {/* Desktop menu */}
           <nav className="hidden md:flex items-center space-x-10">
             <Link to="/" className="text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 px-3 py-2 rounded-lg font-medium transition-all">Home</Link>
-            <Link to="/#" className="text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 px-3 py-2 rounded-lg font-medium transition-all">Library</Link>
-            <Link to="/#" className="text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 px-3 py-2 rounded-lg font-medium transition-all">Speech Practice</Link>
+            <Link to="/library" library="text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 px-3 py-2 rounded-lg font-medium transition-all">Library</Link>
+            <Link to="/activity" className="text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 px-3 py-2 rounded-lg font-medium transition-all">Speech Practice</Link>
             <a href="#early-access" className="bg-brand-blue text-white px-7 py-2.5 rounded-full font-medium shadow-[0_4px_14px_0_rgba(26,93,173,0.39)] hover:shadow-[0_6px_20px_rgba(26,93,173,0.23)] hover:bg-blue-800 hover:-translate-y-0.5 transition-all duration-300">
               Early Access
             </a>
@@ -52,14 +52,14 @@ export default function Navbar() {
               Home
             </Link>
             <Link
-              to="/#"
+              to="/library"
               className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-brand-blue hover:bg-slate-50"
               onClick={() => setIsMenuOpen(false)}
             >
               Library
             </Link>
             <Link
-              to="/#"
+              to="/activity"
               className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-brand-blue hover:bg-slate-50"
               onClick={() => setIsMenuOpen(false)}
             >
