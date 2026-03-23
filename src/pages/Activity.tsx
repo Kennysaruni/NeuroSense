@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Volume2, Play, RefreshCw, CheckCircle2, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const practiceWords = [
   {
@@ -37,7 +38,7 @@ export default function Activity() {
 
   const playAudio = () => {
     if (isPlaying) return;
-    
+
     if ('speechSynthesis' in window) {
       setIsPlaying(true);
       const utterance = new SpeechSynthesisUtterance(currentWord.word);
@@ -75,10 +76,10 @@ export default function Activity() {
     <div className="bg-slate-50 min-h-screen py-12 flex flex-col items-center">
       <div className="max-w-3xl w-full px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex justify-between items-center">
-          <a href="#" className="inline-flex items-center text-slate-500 hover:text-brand-blue transition-colors font-medium">
+          <Link to="/" className="inline-flex items-center text-slate-500 hover:text-brand-blue transition-colors font-medium">
             <ArrowLeft className="w-5 h-5 mr-2" />
             Back Home
-          </a>
+          </Link>
           <div className="text-sm font-medium text-slate-500 bg-white px-4 py-2 rounded-full shadow-sm border border-slate-200">
             Word {currentWordIndex + 1} of {practiceWords.length}
           </div>

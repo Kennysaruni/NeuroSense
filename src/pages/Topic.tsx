@@ -86,7 +86,7 @@ const topicsData = {
 };
 
 export default function Topic() {
-  const { topicId } = useParams<{topicId: string}>();
+  const { topicId } = useParams<{ topicId: string }>();
   const topic = topicId ? topicsData[topicId as keyof typeof topicsData] : null;
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -103,7 +103,7 @@ export default function Topic() {
 
   const toggleAudio = () => {
     setIsPlaying(!isPlaying);
-    // In a real app, this would control an HTML5 audio element
+
   };
 
   return (
@@ -122,8 +122,8 @@ export default function Topic() {
             <p className="text-lg md:text-xl text-slate-700 max-w-2xl leading-relaxed">
               {topic.description}
             </p>
-            
-            <button 
+
+            <button
               onClick={toggleAudio}
               className={`mt-8 inline-flex items-center px-6 py-3 rounded-full bg-white shadow-sm border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors font-medium`}
             >
