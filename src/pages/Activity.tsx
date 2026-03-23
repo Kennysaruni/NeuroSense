@@ -5,7 +5,7 @@ const practiceWords = [
   {
     id: 1,
     word: 'Apple',
-    image: 'https://images.unsplash.com/photo-1560806887-1e4cd0b6fac6?q=80&w=1974&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1630563451961-ac2ff27616ab?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXBwbGV8ZW58MHx8MHx8fDA%3D',
     audio: 'apple.mp3' // Placeholder
   },
   {
@@ -36,13 +36,41 @@ export default function Activity() {
   const currentWord = practiceWords[currentWordIndex];
 
   const playAudio = () => {
+    if (isPlaying) return;
     setIsPlaying(true);
-    // In a real app, play the actual audio file here
-    setTimeout(() => {
+
+
+    const audio = new Audio(`/${currentWord.audio}`);
+
+    audio.onended = () => {
       setIsPlaying(false);
       setShowEncouragement(true);
       setTimeout(() => setShowEncouragement(false), 3000);
-    }, 1500);
+    };
+
+    audio.onerror = () => {
+
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(currentWord.word);
+        utterance.rate = 0.85;
+
+        utterance.onend = () => {
+          setIsPlaying(false);
+          setShowEncouragement(true);
+          setTimeout(() => setShowEncouragement(false), 3000);
+        };
+
+        utterance.onerror = () => setIsPlaying(false);
+
+        window.speechSynthesis.speak(utterance);
+      } else {
+        setIsPlaying(false);
+      }
+    };
+
+    audio.play().catch(() => {
+      audio.dispatchEvent(new Event('error'));
+    });
   };
 
   const nextWord = () => {
@@ -63,7 +91,7 @@ export default function Activity() {
     <div className="bg-slate-50 min-h-screen py-12 flex flex-col items-center">
       <div className="max-w-3xl w-full px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex justify-between items-center">
-          <a href="#/" className="inline-flex items-center text-slate-500 hover:text-brand-blue transition-colors font-medium">
+          <a href="#" className="inline-flex items-center text-slate-500 hover:text-brand-blue transition-colors font-medium">
             <ArrowLeft className="w-5 h-5 mr-2" />
             Back Home
           </a>
@@ -82,13 +110,13 @@ export default function Activity() {
           {/* Main Content */}
           <div className="p-8 md:p-12 flex flex-col items-center">
             <div className="relative w-64 h-64 md:w-80 md:h-80 mb-8 rounded-2xl overflow-hidden shadow-md border-4 border-white">
-              <img 
-                src={currentWord.image} 
-                alt={currentWord.word} 
+              <img
+                src={currentWord.image}
+                alt={currentWord.word}
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
-              <button 
+              <button
                 onClick={playAudio}
                 className="absolute inset-0 bg-black/20 hover:bg-black/10 transition-colors flex items-center justify-center group"
                 aria-label={`Play audio for ${currentWord.word}`}
@@ -113,7 +141,7 @@ export default function Activity() {
 
             {/* Controls */}
             <div className="w-full flex justify-between items-center mt-8 pt-8 border-t border-slate-100">
-              <button 
+              <button
                 onClick={prevWord}
                 disabled={currentWordIndex === 0}
                 className="flex items-center px-6 py-3 rounded-xl font-medium text-slate-600 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
@@ -121,8 +149,8 @@ export default function Activity() {
                 <ArrowLeft className="w-5 h-5 mr-2" />
                 Previous
               </button>
-              
-              <button 
+
+              <button
                 onClick={playAudio}
                 className="flex items-center px-6 py-3 rounded-xl font-bold text-white bg-brand-blue hover:bg-blue-800 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
               >
@@ -130,7 +158,7 @@ export default function Activity() {
                 Listen Again
               </button>
 
-              <button 
+              <button
                 onClick={nextWord}
                 disabled={currentWordIndex === practiceWords.length - 1}
                 className="flex items-center px-6 py-3 rounded-xl font-medium text-slate-600 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
