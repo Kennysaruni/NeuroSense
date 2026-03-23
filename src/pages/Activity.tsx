@@ -124,11 +124,11 @@ export default function Activity() {
             </div>
 
             {/* Controls */}
-            <div className="w-full flex justify-between items-center mt-8 pt-8 border-t border-slate-100">
+            <div className="w-full flex flex-col sm:flex-row justify-center sm:justify-between items-center mt-8 pt-8 border-t border-slate-100 gap-4 sm:gap-0">
               <button
                 onClick={prevWord}
                 disabled={currentWordIndex === 0}
-                className="flex items-center px-6 py-3 rounded-xl font-medium text-slate-600 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="hidden sm:flex items-center px-6 py-3 rounded-xl font-medium text-slate-600 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 <ArrowLeft className="w-5 h-5 mr-2" />
                 Previous
@@ -136,7 +136,7 @@ export default function Activity() {
 
               <button
                 onClick={playAudio}
-                className="flex items-center px-6 py-3 rounded-xl font-bold text-white bg-brand-blue hover:bg-blue-800 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+                className="w-full sm:w-auto flex justify-center items-center px-6 py-4 sm:py-3 rounded-xl font-bold text-white bg-brand-blue hover:bg-blue-800 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
               >
                 <RefreshCw className="w-5 h-5 mr-2" />
                 Listen Again
@@ -145,11 +145,31 @@ export default function Activity() {
               <button
                 onClick={nextWord}
                 disabled={currentWordIndex === practiceWords.length - 1}
-                className="flex items-center px-6 py-3 rounded-xl font-medium text-slate-600 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="hidden sm:flex items-center px-6 py-3 rounded-xl font-medium text-slate-600 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 Next
                 <ArrowRight className="w-5 h-5 ml-2" />
               </button>
+
+              {/* Mobile Only Prev/Next */}
+              <div className="flex w-full sm:hidden justify-between gap-4">
+                <button
+                  onClick={prevWord}
+                  disabled={currentWordIndex === 0}
+                  className="flex-1 flex justify-center items-center px-4 py-4 rounded-xl font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  <ArrowLeft className="w-5 h-5 mr-2" />
+                  Prev
+                </button>
+                <button
+                  onClick={nextWord}
+                  disabled={currentWordIndex === practiceWords.length - 1}
+                  className="flex-1 flex justify-center items-center px-4 py-4 rounded-xl font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  Next
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
