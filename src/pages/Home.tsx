@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowRight, BookOpen, Mic, Users, CheckCircle2, User, Mail, Building2, Briefcase } from 'lucide-react';
 import { supabase } from '../supabaseClient';
+import { Link } from 'react-router-dom'
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -63,18 +64,17 @@ export default function Home() {
                   Get Early Access
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
-                <a
-                  href="#/library"
+                <Link to="/library"
                   className="inline-flex justify-center items-center px-6 py-3 border border-slate-300 text-base font-medium rounded-md text-slate-700 bg-white hover:bg-slate-50 transition-colors shadow-sm"
                 >
                   Explore Library
-                </a>
+                </Link>
               </div>
             </div>
             <div className="relative hidden lg:block">
               <div className="absolute inset-0 bg-gradient-to-tr from-brand-teal to-brand-blue rounded-2xl transform rotate-3 scale-105 opacity-20 blur-xl"></div>
               <img
-                src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2022&auto=format&fit=crop"
+                src="https://images.unsplash.com/flagged/photo-1551887373-6edba6dacbb1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2hpbGRyZW4lMjBsZWFybmluZ3xlbnwwfHwwfHx8MA%3D%3D"
                 alt="Children learning together"
                 className="relative rounded-2xl shadow-2xl object-cover h-[500px] w-full"
                 referrerPolicy="no-referrer"
