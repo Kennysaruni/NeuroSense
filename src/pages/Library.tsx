@@ -51,14 +51,14 @@ export default function Library() {
           <div className="absolute -top-10 -left-10 w-20 h-20 rounded-full bg-brand-yellow/30 animate-pulse z-0 hidden md:block"></div>
           <h1 className="text-5xl md:text-6xl font-black text-slate-800 mb-6 drop-shadow-sm relative z-10">Understanding Your Child</h1>
           <p className="text-2xl text-slate-600 font-bold relative z-10">
-            An educational resource library designed for African schools and caregivers! 🌟
+            An educational resource library designed for African schools and caregivers!
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 max-w-5xl mx-auto">
           {topics.map((topic) => (
-            <Link 
-              key={topic.id} 
+            <Link
+              key={topic.id}
               to={`/library/${topic.id}`}
               className={`group bg-white rounded-[2.5rem] p-10 border-[6px] border-slate-100/80 shadow-lg hover:shadow-2xl hover:-translate-y-3 ${topic.hoverBorder} transition-all duration-300 flex flex-col h-full active:translate-y-0`}
             >

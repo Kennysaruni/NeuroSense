@@ -220,7 +220,7 @@ export default function Activity() {
                 Back
               </button>
 
-              <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+              <div className="flex flex-col sm:flex-row gap-6 md:gap-8 w-full sm:w-auto">
                 <button
                   onClick={playAudio}
                   className="flex justify-center items-center px-8 py-4 rounded-2xl font-black text-xl text-brand-blue bg-brand-yellow border-b-[6px] border-yellow-500 hover:bg-yellow-400 active:border-b-0 active:translate-y-[6px] transition-all drop-shadow-md"
@@ -249,7 +249,7 @@ export default function Activity() {
               </button>
 
               {/* Mobile Only Prev/Next */}
-              <div className="flex w-full sm:hidden justify-between gap-4 mt-6">
+              <div className="flex w-full sm:hidden justify-between gap-6 mt-8">
                 <button
                   onClick={prevWord}
                   disabled={currentWordIndex === 0}

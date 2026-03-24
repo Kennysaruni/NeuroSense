@@ -54,7 +54,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="max-w-2xl">
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-slate-800 leading-tight mb-6 drop-shadow-sm">
-                Unlock <span className="text-brand-pink">Every</span> <span className="text-brand-blue underline decoration-brand-yellow decoration-wavy decoration-[6px] underline-offset-8">Child's</span> Potential
+                Unlock <span className="text-brand-green">Every</span> <span className="text-brand-blue underline decoration-brand-yellow decoration-wavy decoration-[6px] underline-offset-8">Child's</span> Potential
               </h1>
               <p className="text-xl sm:text-2xl text-slate-700 mb-8 font-medium leading-relaxed">
                 NeuroSense Africa is a fun, welcoming platform supporting children with neurodevelopmental differences. Built for families and schools in Africa!
@@ -76,8 +76,8 @@ export default function Home() {
             </div>
             <div className="relative hidden lg:block">
               {/* Playful image container */}
-              <div className="absolute inset-0 bg-brand-yellow rounded-[3rem] transform rotate-6 scale-105 z-0"></div>
-              <div className="absolute inset-0 bg-brand-pink rounded-[3rem] transform -rotate-3 scale-105 z-0"></div>
+              <div className="absolute inset-0 bg-brand-green rounded-[3rem] transform rotate-6 scale-105 z-0"></div>
+              <div className="absolute inset-0 bg-brand-blue rounded-[3rem] transform -rotate-3 scale-105 z-0"></div>
               <img
                 src="https://images.unsplash.com/flagged/photo-1551887373-6edba6dacbb1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2hpbGRyZW4lMjBsZWFybmluZ3xlbnwwfHwwfHx8MA%3D%3D"
                 alt="Children learning together"
@@ -262,7 +262,7 @@ export default function Home() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full flex justify-center items-center px-8 py-5 text-xl font-black rounded-2xl text-white bg-brand-pink border-b-[6px] border-pink-700 hover:bg-pink-400 active:border-b-0 active:translate-y-[6px] transition-all disabled:opacity-70 disabled:cursor-not-allowed shadow-xl group"
+                    className="w-full flex justify-center items-center px-8 py-5 text-xl font-black rounded-2xl text-white bg-brand-green border-b-[6px] border-blue-700 hover:bg-blue active:border-b-0 active:translate-y-[6px] transition-all disabled:opacity-70 disabled:cursor-not-allowed shadow-xl group"
                   >
                     <span className="relative flex items-center drop-shadow-sm">
                       {isSubmitting ? (
