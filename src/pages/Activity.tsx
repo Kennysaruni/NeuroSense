@@ -141,7 +141,7 @@ export default function Activity() {
 
   return (
     <div className="bg-slate-50 min-h-screen py-12 flex flex-col items-center">
-      <div className="max-w-3xl w-full px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl w-full px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex justify-between items-center">
           <Link to="/" className="inline-flex items-center text-slate-500 hover:text-brand-blue transition-colors font-medium">
             <ArrowLeft className="w-5 h-5 mr-2" />
@@ -169,8 +169,8 @@ export default function Activity() {
             <div className="absolute bottom-40 left-8 md:left-32 w-6 h-6 rounded-full bg-brand-pink/40 animate-bounce" style={{ animationDuration: '2.5s' }}></div>
             <div className="absolute bottom-20 right-16 md:right-40 w-10 h-10 rounded-full bg-brand-blue/30 animate-pulse" style={{ animationDuration: '3.5s' }}></div>
             <div className="absolute top-1/2 left-4 md:left-10 w-4 h-4 rounded-full bg-brand-green/40 animate-ping" style={{ animationDuration: '5s' }}></div>
-            
-            <div className="relative w-64 h-64 md:w-80 md:h-80 mb-10 rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white transform rotate-1 hover:rotate-0 transition-transform duration-300 z-10">
+
+            <div className="relative w-64 h-64 md:w-80 md:h-80 mb-10 rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white transform rotate-0 hover:rotate-1 transition-transform duration-300 z-10">
               <img
                 src={currentWord.image}
                 alt={currentWord.word}
