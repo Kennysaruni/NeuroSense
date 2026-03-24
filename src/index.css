@@ -1,7 +1,14 @@
 @import "tailwindcss";
 
 @theme {
+  --font-sans: "Quicksand", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
   --color-brand-blue: #1A5DAD;
+  --color-brand-yellow: #FFB800;
+  --color-brand-pink: #FF6B9E;
   --color-brand-teal: #6BBFCD;
   --color-brand-green: #3BB44A;
+}
+
+body {
+  font-family: var(--font-sans);
 }

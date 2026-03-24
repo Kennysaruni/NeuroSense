@@ -116,26 +116,26 @@ export default function Topic() {
           </Link>
         </div>
 
-        <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
-          <div className={`${topic.bgColor} p-8 md:p-12 border-b border-slate-100`}>
-            <h1 className={`text-3xl md:text-4xl font-bold ${topic.color} mb-4`}>{topic.title}</h1>
-            <p className="text-lg md:text-xl text-slate-700 max-w-2xl leading-relaxed">
+        <div className="bg-white rounded-[2.5rem] shadow-xl border-4 border-slate-100 overflow-hidden">
+          <div className={`${topic.bgColor} p-8 md:p-12 border-b-8 border-slate-100/50`}>
+            <h1 className={`text-4xl md:text-5xl font-black ${topic.color} mb-4 drop-shadow-sm`}>{topic.title}</h1>
+            <p className="text-xl md:text-2xl text-slate-700 max-w-2xl font-bold leading-relaxed">
               {topic.description}
             </p>
 
             <button
               onClick={toggleAudio}
-              className={`mt-8 inline-flex items-center px-6 py-3 rounded-full bg-white shadow-sm border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors font-medium`}
+              className={`mt-8 inline-flex items-center px-8 py-4 rounded-[1.5rem] bg-white text-slate-800 font-black border-b-[5px] border-slate-300 active:border-b-0 active:translate-y-[5px] hover:bg-slate-50 transition-all text-lg`}
             >
               {isPlaying ? (
                 <>
-                  <PauseCircle className={`w-6 h-6 mr-2 ${topic.color}`} />
-                  Pause Audio Guide
+                  <PauseCircle className={`w-8 h-8 mr-3 ${topic.color}`} />
+                  Pause Audio
                 </>
               ) : (
                 <>
-                  <PlayCircle className={`w-6 h-6 mr-2 ${topic.color}`} />
-                  Listen to Audio Guide
+                  <PlayCircle className={`w-8 h-8 mr-3 ${topic.color}`} />
+                  Listen to Guide
                 </>
               )}
             </button>

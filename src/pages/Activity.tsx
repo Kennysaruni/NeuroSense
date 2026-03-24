@@ -154,14 +154,19 @@ export default function Activity() {
 
         <div className="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden relative">
           {/* Header */}
-          <div className="bg-brand-blue/10 p-8 text-center border-b border-slate-100">
-            <h1 className="text-3xl font-bold text-brand-blue mb-2">Speech Practice</h1>
-            <p className="text-slate-600 text-lg">Listen, point, and say the word. Take your time!</p>
+          <div className="bg-brand-blue/20 p-8 text-center border-b-[6px] border-brand-blue/30 relative overflow-hidden">
+            <div className="absolute top-2 left-6 w-16 h-16 bg-white rounded-full opacity-40 animate-pulse"></div>
+            <div className="absolute -bottom-4 right-10 w-24 h-24 bg-white rounded-full opacity-30"></div>
+            <h1 className="text-4xl font-black text-brand-blue mb-2 drop-shadow-sm relative z-10">Speech Practice! 🎙️</h1>
+            <p className="text-brand-blue font-bold text-xl relative z-10">Listen, point, and say the word out loud!</p>
           </div>
 
           {/* Main Content */}
-          <div className="p-8 md:p-12 flex flex-col items-center">
-            <div className="relative w-64 h-64 md:w-80 md:h-80 mb-8 rounded-2xl overflow-hidden shadow-md border-4 border-white">
+          <div className="p-8 md:p-12 flex flex-col items-center relative">
+            <div className="absolute top-10 right-10 w-8 h-8 rounded-full bg-brand-yellow/40 animate-bounce"></div>
+            <div className="absolute bottom-40 left-10 w-6 h-6 rounded-full bg-brand-pink/40 animate-pulse"></div>
+            
+            <div className="relative w-64 h-64 md:w-80 md:h-80 mb-10 rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white transform rotate-3 hover:rotate-0 transition-transform duration-300">
               <img
                 src={currentWord.image}
                 alt={currentWord.word}
@@ -170,16 +175,16 @@ export default function Activity() {
               />
               <button
                 onClick={playAudio}
-                className="absolute inset-0 bg-black/20 hover:bg-black/10 transition-colors flex items-center justify-center group"
+                className="absolute inset-0 bg-black/10 hover:bg-black/5 transition-colors flex items-center justify-center group"
                 aria-label={`Play audio for ${currentWord.word}`}
               >
-                <div className={`w-20 h-20 rounded-full bg-white/90 flex items-center justify-center shadow-lg transform transition-transform ${isPlaying ? 'scale-95 bg-brand-blue text-white' : 'group-hover:scale-110 text-brand-blue'}`}>
-                  {isPlaying ? <Volume2 className="w-10 h-10 animate-pulse" /> : <Play className="w-10 h-10 ml-2" />}
+                <div className={`w-24 h-24 rounded-full bg-white/95 flex items-center justify-center shadow-xl transform transition-transform ${isPlaying ? 'scale-95 bg-brand-blue text-white' : 'group-hover:scale-110 text-brand-blue'}`}>
+                  {isPlaying ? <Volume2 className="w-12 h-12 animate-pulse" /> : <Play className="w-12 h-12 ml-2" />}
                 </div>
               </button>
             </div>
 
-            <h2 className="text-5xl md:text-6xl font-black text-slate-900 mb-8 tracking-tight">
+            <h2 className="text-6xl md:text-7xl font-black text-slate-800 mb-8 tracking-tight drop-shadow-md">
               {currentWord.word}
             </h2>
 
@@ -205,58 +210,58 @@ export default function Activity() {
             </div>
 
             {/* Controls */}
-            <div className="w-full flex flex-col sm:flex-row justify-center sm:justify-between items-center mt-8 pt-8 border-t border-slate-100 gap-4 sm:gap-0">
+            <div className="w-full flex flex-col sm:flex-row justify-center sm:justify-between items-center mt-10 pt-10 border-t-[4px] border-slate-100 gap-6 sm:gap-0">
               <button
                 onClick={prevWord}
                 disabled={currentWordIndex === 0}
-                className="hidden sm:flex items-center px-6 py-3 rounded-xl font-medium text-slate-600 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="hidden sm:flex items-center px-6 py-4 rounded-2xl font-black text-slate-500 bg-slate-100 border-b-[4px] border-slate-300 hover:bg-slate-200 active:border-b-0 active:translate-y-[4px] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
               >
-                <ArrowLeft className="w-5 h-5 mr-2" />
-                Previous
+                <ArrowLeft className="w-6 h-6 mr-2" />
+                Back
               </button>
 
-              <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+              <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                 <button
                   onClick={playAudio}
-                  className="flex justify-center items-center px-6 py-4 sm:py-3 rounded-xl font-bold text-white bg-brand-blue hover:bg-blue-800 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+                  className="flex justify-center items-center px-8 py-4 rounded-2xl font-black text-xl text-brand-blue bg-brand-yellow border-b-[6px] border-yellow-500 hover:bg-yellow-400 active:border-b-0 active:translate-y-[6px] transition-all drop-shadow-md"
                 >
-                  <RefreshCw className="w-5 h-5 mr-2" />
-                  Listen Again
+                  <RefreshCw className="w-6 h-6 mr-3" />
+                  Listen
                 </button>
                 <button
                   onClick={isListening ? stopListening : startListening}
-                  className={`flex justify-center items-center px-6 py-4 sm:py-3 rounded-xl font-bold text-white shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 ${
-                     isListening ? 'bg-red-500 hover:bg-red-600' : 'bg-brand-teal hover:bg-teal-700'
+                  className={`flex justify-center items-center px-8 py-4 rounded-2xl font-black text-xl text-white border-b-[6px] transition-all active:border-b-0 active:translate-y-[6px] drop-shadow-md ${
+                     isListening ? 'bg-brand-pink border-pink-700 hover:bg-pink-400' : 'bg-brand-teal border-teal-600 hover:bg-teal-400'
                   }`}
                 >
-                  <Mic className={`w-5 h-5 mr-2 ${isListening ? 'animate-bounce' : ''}`} />
-                  {isListening ? 'Listening...' : 'Say It'}
+                  <Mic className={`w-6 h-6 mr-3 ${isListening ? 'animate-bounce' : ''}`} />
+                  {isListening ? 'Listening...' : 'Say It!'}
                 </button>
               </div>
 
               <button
                 onClick={nextWord}
                 disabled={currentWordIndex === practiceWords.length - 1}
-                className="hidden sm:flex items-center px-6 py-3 rounded-xl font-medium text-slate-600 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="hidden sm:flex items-center px-6 py-4 rounded-2xl font-black text-white bg-brand-blue border-b-[4px] border-blue-800 hover:bg-blue-500 active:border-b-0 active:translate-y-[4px] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
               >
-                Next
-                <ArrowRight className="w-5 h-5 ml-2" />
+                Next Word
+                <ArrowRight className="w-6 h-6 ml-2" />
               </button>
 
               {/* Mobile Only Prev/Next */}
-              <div className="flex w-full sm:hidden justify-between gap-4">
+              <div className="flex w-full sm:hidden justify-between gap-4 mt-6">
                 <button
                   onClick={prevWord}
                   disabled={currentWordIndex === 0}
-                  className="flex-1 flex justify-center items-center px-4 py-4 rounded-xl font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="flex-1 flex justify-center items-center px-4 py-4 rounded-2xl font-black text-slate-500 bg-slate-100 border-b-[4px] border-slate-300 hover:bg-slate-200 disabled:opacity-50 disabled:cursor-not-allowed active:border-b-0 active:translate-y-[4px] transition-all"
                 >
                   <ArrowLeft className="w-5 h-5 mr-2" />
-                  Prev
+                  Back
                 </button>
                 <button
                   onClick={nextWord}
                   disabled={currentWordIndex === practiceWords.length - 1}
-                  className="flex-1 flex justify-center items-center px-4 py-4 rounded-xl font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="flex-1 flex justify-center items-center px-4 py-4 rounded-2xl font-black text-white bg-brand-blue border-b-[4px] border-blue-800 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed active:border-b-0 active:translate-y-[4px] transition-all"
                 >
                   Next
                   <ArrowRight className="w-5 h-5 ml-2" />
