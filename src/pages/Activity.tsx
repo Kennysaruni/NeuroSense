@@ -8,8 +8,8 @@ const practiceWords = [
   { id: 3, word: 'Cat', image: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=2043&auto=format&fit=crop', audio: 'cat.mp3' },
   { id: 4, word: 'Dog', image: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=1974&auto=format&fit=crop', audio: 'dog.mp3' },
   { id: 5, word: 'Elephant', image: 'https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=600&auto=format&fit=crop&q=60', audio: 'elephant.mp3' },
-  { id: 6, word: 'Frog', image: 'https://images.unsplash.com/photo-1560840067-ddcaeb6831c2?w=600&auto=format&fit=crop&q=60', audio: 'frog.mp3' },
-  { id: 7, word: 'Giraffe', image: 'https://images.unsplash.com/photo-1547149666-769b4e06bc9a?w=600&auto=format&fit=crop&q=60', audio: 'giraffe.mp3' },
+  { id: 6, word: 'Frog', image: 'https://images.unsplash.com/photo-1698435354321-0bccb1549b4d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGZyb2dzfGVufDB8fDB8fHww', audio: 'frog.mp3' },
+  { id: 7, word: 'Giraffe', image: 'https://plus.unsplash.com/premium_photo-1661813434310-98cca4c9135e?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Z2lyYWZmZXxlbnwwfHwwfHx8MA%3D%3D', audio: 'giraffe.mp3' },
   { id: 8, word: 'Hat', image: 'https://images.unsplash.com/photo-1521369909029-2afed882baee?w=600&auto=format&fit=crop&q=60', audio: 'hat.mp3' },
   { id: 9, word: 'Ice cream', image: 'https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=600&auto=format&fit=crop&q=60', audio: 'icecream.mp3' },
   { id: 10, word: 'Juice', image: 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=600&auto=format&fit=crop&q=60', audio: 'juice.mp3' }
@@ -29,7 +29,7 @@ export default function Activity() {
   const [showEncouragement, setShowEncouragement] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [speechFeedback, setSpeechFeedback] = useState('');
-  
+
   const recognitionRef = useRef<any>(null);
 
   const currentWord = practiceWords[currentWordIndex];
@@ -83,7 +83,7 @@ export default function Activity() {
         const transcript = event.results[0][0].transcript.toLowerCase().trim();
         const cleanedTranscript = transcript.replace(/[.,!?]/g, '');
         const targetWord = currentWord.word.toLowerCase();
-        
+
         if (cleanedTranscript.includes(targetWord) || targetWord.includes(cleanedTranscript)) {
           setShowEncouragement(true);
           setSpeechFeedback("Great pronunciation!");
@@ -165,7 +165,7 @@ export default function Activity() {
           <div className="p-8 md:p-12 flex flex-col items-center relative">
             <div className="absolute top-10 right-10 w-8 h-8 rounded-full bg-brand-yellow/40 animate-bounce"></div>
             <div className="absolute bottom-40 left-10 w-6 h-6 rounded-full bg-brand-pink/40 animate-pulse"></div>
-            
+
             <div className="relative w-64 h-64 md:w-80 md:h-80 mb-10 rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white transform rotate-3 hover:rotate-0 transition-transform duration-300">
               <img
                 src={currentWord.image}
@@ -178,18 +178,18 @@ export default function Activity() {
                 className="absolute inset-0 bg-black/10 hover:bg-black/5 transition-colors flex items-center justify-center group"
                 aria-label={`Play audio for ${currentWord.word}`}
               >
-                <div className={`w-24 h-24 rounded-full bg-white/95 flex items-center justify-center shadow-xl transform transition-transform ${isPlaying ? 'scale-95 bg-brand-blue text-white' : 'group-hover:scale-110 text-brand-blue'}`}>
+                <div className={`w-24 h-24 rounded-full bg-white flex items-center justify-center shadow-xl transform transition-all duration-300 ${isPlaying ? 'opacity-0 scale-95' : 'opacity-70 group-hover:opacity-100 group-hover:scale-110 text-brand-blue'}`}>
                   {isPlaying ? <Volume2 className="w-12 h-12 animate-pulse" /> : <Play className="w-12 h-12 ml-2" />}
                 </div>
               </button>
             </div>
 
-            <h2 className="text-6xl md:text-7xl font-black text-slate-800 mb-8 tracking-tight drop-shadow-md">
+            <h2 className="text-6xl md:text-7xl font-black text-slate-800 mb-4 tracking-tight drop-shadow-md">
               {currentWord.word}
             </h2>
 
             {/* Feedback / Encouragement Message */}
-            <div className={`h-16 flex items-center justify-center transition-opacity duration-300 w-full`}>
+            <div className={`flex items-center justify-center transition-all duration-300 w-full ${showEncouragement || speechFeedback ? 'h-16 mb-4 opacity-100' : 'h-0 opacity-0 overflow-hidden'}`}>
               {showEncouragement ? (
                 <div className="bg-brand-green/10 text-brand-green px-6 py-3 rounded-full font-bold text-lg flex items-center shadow-sm border border-brand-green/20">
                   <CheckCircle2 className="w-6 h-6 mr-2" />
@@ -204,13 +204,11 @@ export default function Activity() {
                   )}
                   {speechFeedback}
                 </div>
-              ) : (
-                <span className="opacity-0">Placeholder</span>
-              )}
+              ) : null}
             </div>
 
             {/* Controls */}
-            <div className="w-full flex flex-col sm:flex-row justify-center sm:justify-between items-center mt-10 pt-10 border-t-[4px] border-slate-100 gap-6 sm:gap-0">
+            <div className="w-full flex flex-col sm:flex-row justify-center sm:justify-between items-center mt-6 pt-8 border-t-[4px] border-slate-100 gap-6 sm:gap-0">
               <button
                 onClick={prevWord}
                 disabled={currentWordIndex === 0}
@@ -230,9 +228,8 @@ export default function Activity() {
                 </button>
                 <button
                   onClick={isListening ? stopListening : startListening}
-                  className={`flex justify-center items-center px-8 py-4 rounded-2xl font-black text-xl text-white border-b-[6px] transition-all active:border-b-0 active:translate-y-[6px] drop-shadow-md ${
-                     isListening ? 'bg-brand-pink border-pink-700 hover:bg-pink-400' : 'bg-brand-teal border-teal-600 hover:bg-teal-400'
-                  }`}
+                  className={`flex justify-center items-center px-8 py-4 rounded-2xl font-black text-xl text-white border-b-[6px] transition-all active:border-b-0 active:translate-y-[6px] drop-shadow-md ${isListening ? 'bg-brand-pink border-pink-700 hover:bg-pink-400' : 'bg-brand-teal border-teal-600 hover:bg-teal-400'
+                    }`}
                 >
                   <Mic className={`w-6 h-6 mr-3 ${isListening ? 'animate-bounce' : ''}`} />
                   {isListening ? 'Listening...' : 'Say It!'}
