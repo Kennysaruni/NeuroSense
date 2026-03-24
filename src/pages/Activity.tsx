@@ -15,7 +15,7 @@ const practiceWords = [
   { id: 10, word: 'Juice', image: 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=600&auto=format&fit=crop&q=60', audio: 'juice.mp3' }
 ];
 
-// Add SpeechRecognition typing
+
 declare global {
   interface Window {
     SpeechRecognition: any;
@@ -162,11 +162,15 @@ export default function Activity() {
           </div>
 
           {/* Main Content */}
-          <div className="p-8 md:p-12 flex flex-col items-center relative">
-            <div className="absolute top-10 right-10 w-8 h-8 rounded-full bg-brand-yellow/40 animate-bounce"></div>
-            <div className="absolute bottom-40 left-10 w-6 h-6 rounded-full bg-brand-pink/40 animate-pulse"></div>
-
-            <div className="relative w-64 h-64 md:w-80 md:h-80 mb-10 rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white transform rotate-3 hover:rotate-0 transition-transform duration-300">
+          <div className="p-8 md:p-12 flex flex-col items-center relative w-full">
+            {/* Playful Floating Bubbles */}
+            <div className="absolute top-10 right-10 md:right-32 w-8 h-8 rounded-full bg-brand-yellow/40 animate-bounce" style={{ animationDuration: '3s' }}></div>
+            <div className="absolute top-20 left-10 md:left-24 w-12 h-12 rounded-full bg-brand-teal/30 animate-pulse" style={{ animationDuration: '4s' }}></div>
+            <div className="absolute bottom-40 left-8 md:left-32 w-6 h-6 rounded-full bg-brand-pink/40 animate-bounce" style={{ animationDuration: '2.5s' }}></div>
+            <div className="absolute bottom-20 right-16 md:right-40 w-10 h-10 rounded-full bg-brand-blue/30 animate-pulse" style={{ animationDuration: '3.5s' }}></div>
+            <div className="absolute top-1/2 left-4 md:left-10 w-4 h-4 rounded-full bg-brand-green/40 animate-ping" style={{ animationDuration: '5s' }}></div>
+            
+            <div className="relative w-64 h-64 md:w-80 md:h-80 mb-10 rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white transform rotate-1 hover:rotate-0 transition-transform duration-300 z-10">
               <img
                 src={currentWord.image}
                 alt={currentWord.word}
@@ -208,11 +212,11 @@ export default function Activity() {
             </div>
 
             {/* Controls */}
-            <div className="w-full flex flex-col sm:flex-row justify-center sm:justify-between items-center mt-6 pt-8 border-t-[4px] border-slate-100 gap-6 sm:gap-0">
+            <div className="w-full flex flex-col sm:flex-row justify-center sm:justify-between items-center mt-6 pt-8 border-t-[4px] border-slate-100 gap-6 sm:gap-0 relative z-10">
               <button
                 onClick={prevWord}
                 disabled={currentWordIndex === 0}
-                className="hidden sm:flex items-center px-6 py-4 rounded-2xl font-black text-slate-500 bg-slate-100 border-b-[4px] border-slate-300 hover:bg-slate-200 active:border-b-0 active:translate-y-[4px] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                className="hidden sm:flex items-center px-6 py-4 rounded-2xl font-black text-slate-700 bg-slate-200 border-b-[4px] border-slate-400 hover:bg-slate-300 active:border-b-0 active:translate-y-[4px] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
               >
                 <ArrowLeft className="w-6 h-6 mr-2" />
                 Back
@@ -246,11 +250,11 @@ export default function Activity() {
               </button>
 
               {/* Mobile Only Prev/Next */}
-              <div className="flex w-full sm:hidden justify-between gap-6 mt-8">
+              <div className="flex w-full sm:hidden justify-between gap-6 mt-8 relative z-10">
                 <button
                   onClick={prevWord}
                   disabled={currentWordIndex === 0}
-                  className="flex-1 flex justify-center items-center px-4 py-4 rounded-2xl font-black text-slate-500 bg-slate-100 border-b-[4px] border-slate-300 hover:bg-slate-200 disabled:opacity-50 disabled:cursor-not-allowed active:border-b-0 active:translate-y-[4px] transition-all"
+                  className="flex-1 flex justify-center items-center px-4 py-4 rounded-2xl font-black text-slate-700 bg-slate-200 border-b-[4px] border-slate-400 hover:bg-slate-300 disabled:opacity-50 disabled:cursor-not-allowed active:border-b-0 active:translate-y-[4px] transition-all"
                 >
                   <ArrowLeft className="w-5 h-5 mr-2" />
                   Back
