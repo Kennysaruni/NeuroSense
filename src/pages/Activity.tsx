@@ -1,38 +1,36 @@
-import { useState } from 'react';
-import { Volume2, Play, RefreshCw, CheckCircle2, ArrowRight, ArrowLeft } from 'lucide-react';
+import { useState, useCallback, useRef } from 'react';
+import { Volume2, Play, RefreshCw, CheckCircle2, ArrowRight, ArrowLeft, Mic, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const practiceWords = [
-  {
-    id: 1,
-    word: 'Apple',
-    image: 'https://images.unsplash.com/photo-1630563451961-ac2ff27616ab?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXBwbGV8ZW58MHx8MHx8fDA%3D',
-    audio: 'apple.mp3' // Placeholder
-  },
-  {
-    id: 2,
-    word: 'Banana',
-    image: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?q=80&w=2080&auto=format&fit=crop',
-    audio: 'banana.mp3' // Placeholder
-  },
-  {
-    id: 3,
-    word: 'Cat',
-    image: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=2043&auto=format&fit=crop',
-    audio: 'cat.mp3' // Placeholder
-  },
-  {
-    id: 4,
-    word: 'Dog',
-    image: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=1974&auto=format&fit=crop',
-    audio: 'dog.mp3' // Placeholder
-  }
+  { id: 1, word: 'Apple', image: 'https://images.unsplash.com/photo-1630563451961-ac2ff27616ab?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXBwbGV8ZW58MHx8MHx8fDA%3D', audio: 'apple.mp3' },
+  { id: 2, word: 'Banana', image: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?q=80&w=2080&auto=format&fit=crop', audio: 'banana.mp3' },
+  { id: 3, word: 'Cat', image: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=2043&auto=format&fit=crop', audio: 'cat.mp3' },
+  { id: 4, word: 'Dog', image: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=1974&auto=format&fit=crop', audio: 'dog.mp3' },
+  { id: 5, word: 'Elephant', image: 'https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=600&auto=format&fit=crop&q=60', audio: 'elephant.mp3' },
+  { id: 6, word: 'Frog', image: 'https://images.unsplash.com/photo-1560840067-ddcaeb6831c2?w=600&auto=format&fit=crop&q=60', audio: 'frog.mp3' },
+  { id: 7, word: 'Giraffe', image: 'https://images.unsplash.com/photo-1547149666-769b4e06bc9a?w=600&auto=format&fit=crop&q=60', audio: 'giraffe.mp3' },
+  { id: 8, word: 'Hat', image: 'https://images.unsplash.com/photo-1521369909029-2afed882baee?w=600&auto=format&fit=crop&q=60', audio: 'hat.mp3' },
+  { id: 9, word: 'Ice cream', image: 'https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=600&auto=format&fit=crop&q=60', audio: 'icecream.mp3' },
+  { id: 10, word: 'Juice', image: 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=600&auto=format&fit=crop&q=60', audio: 'juice.mp3' }
 ];
+
+// Add SpeechRecognition typing
+declare global {
+  interface Window {
+    SpeechRecognition: any;
+    webkitSpeechRecognition: any;
+  }
+}
 
 export default function Activity() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showEncouragement, setShowEncouragement] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [speechFeedback, setSpeechFeedback] = useState('');
+  
+  const recognitionRef = useRef<any>(null);
 
   const currentWord = practiceWords[currentWordIndex];
 
@@ -58,17 +56,86 @@ export default function Activity() {
     }
   };
 
+  const startListening = useCallback(() => {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      setSpeechFeedback("Speech recognition is not supported in this browser.");
+      return;
+    }
+
+    if (isListening) return;
+
+    try {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognitionRef.current = recognition;
+
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+
+      recognition.onstart = () => {
+        setIsListening(true);
+        setSpeechFeedback("Listening...");
+        setShowEncouragement(false);
+      };
+
+      recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript.toLowerCase().trim();
+        const cleanedTranscript = transcript.replace(/[.,!?]/g, '');
+        const targetWord = currentWord.word.toLowerCase();
+        
+        if (cleanedTranscript.includes(targetWord) || targetWord.includes(cleanedTranscript)) {
+          setShowEncouragement(true);
+          setSpeechFeedback("Great pronunciation!");
+        } else {
+          setSpeechFeedback(`You said: "${transcript}". Try again!`);
+          setShowEncouragement(false);
+        }
+      };
+
+      recognition.onerror = (event: any) => {
+        setIsListening(false);
+        if (event.error === 'not-allowed') {
+          setSpeechFeedback("Microphone access denied.");
+        } else if (event.error !== 'aborted') {
+          setSpeechFeedback("Could not hear clearly. Try again.");
+        }
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+        setSpeechFeedback(prev => prev === "Listening..." ? "" : prev);
+      };
+
+      recognition.start();
+    } catch (error) {
+      setIsListening(false);
+      console.error(error);
+    }
+  }, [currentWord.word, isListening]);
+
+  const stopListening = () => {
+    if (recognitionRef.current && isListening) {
+      recognitionRef.current.stop();
+      setIsListening(false);
+    }
+  };
+
   const nextWord = () => {
     if (currentWordIndex < practiceWords.length - 1) {
+      stopListening();
       setCurrentWordIndex(currentWordIndex + 1);
       setShowEncouragement(false);
+      setSpeechFeedback("");
     }
   };
 
   const prevWord = () => {
     if (currentWordIndex > 0) {
+      stopListening();
       setCurrentWordIndex(currentWordIndex - 1);
       setShowEncouragement(false);
+      setSpeechFeedback("");
     }
   };
 
@@ -116,12 +183,25 @@ export default function Activity() {
               {currentWord.word}
             </h2>
 
-            {/* Encouragement Message */}
-            <div className={`h-16 flex items-center justify-center transition-opacity duration-500 ${showEncouragement ? 'opacity-100' : 'opacity-0'}`}>
-              <div className="bg-brand-green/10 text-brand-green px-6 py-3 rounded-full font-bold text-lg flex items-center shadow-sm border border-brand-green/20">
-                <CheckCircle2 className="w-6 h-6 mr-2" />
-                Great job! Try another one.
-              </div>
+            {/* Feedback / Encouragement Message */}
+            <div className={`h-16 flex items-center justify-center transition-opacity duration-300 w-full`}>
+              {showEncouragement ? (
+                <div className="bg-brand-green/10 text-brand-green px-6 py-3 rounded-full font-bold text-lg flex items-center shadow-sm border border-brand-green/20">
+                  <CheckCircle2 className="w-6 h-6 mr-2" />
+                  {speechFeedback || "Great job! Try another one."}
+                </div>
+              ) : speechFeedback ? (
+                <div className="bg-amber-50 text-amber-700 px-6 py-3 rounded-full font-medium text-md flex items-center shadow-sm border border-amber-200">
+                  {speechFeedback === "Listening..." ? (
+                    <Mic className="w-5 h-5 mr-2 animate-pulse text-amber-700" />
+                  ) : (
+                    <AlertCircle className="w-5 h-5 mr-2" />
+                  )}
+                  {speechFeedback}
+                </div>
+              ) : (
+                <span className="opacity-0">Placeholder</span>
+              )}
             </div>
 
             {/* Controls */}
@@ -135,13 +215,24 @@ export default function Activity() {
                 Previous
               </button>
 
-              <button
-                onClick={playAudio}
-                className="w-full sm:w-auto flex justify-center items-center px-6 py-4 sm:py-3 rounded-xl font-bold text-white bg-brand-blue hover:bg-blue-800 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
-              >
-                <RefreshCw className="w-5 h-5 mr-2" />
-                Listen Again
-              </button>
+              <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                <button
+                  onClick={playAudio}
+                  className="flex justify-center items-center px-6 py-4 sm:py-3 rounded-xl font-bold text-white bg-brand-blue hover:bg-blue-800 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+                >
+                  <RefreshCw className="w-5 h-5 mr-2" />
+                  Listen Again
+                </button>
+                <button
+                  onClick={isListening ? stopListening : startListening}
+                  className={`flex justify-center items-center px-6 py-4 sm:py-3 rounded-xl font-bold text-white shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 ${
+                     isListening ? 'bg-red-500 hover:bg-red-600' : 'bg-brand-teal hover:bg-teal-700'
+                  }`}
+                >
+                  <Mic className={`w-5 h-5 mr-2 ${isListening ? 'animate-bounce' : ''}`} />
+                  {isListening ? 'Listening...' : 'Say It'}
+                </button>
+              </div>
 
               <button
                 onClick={nextWord}
