@@ -57,7 +57,7 @@ export default function Activity() {
     }
   };
 
-  const startListening = useCallback(() => {
+  const startListening = useCallback(async () => {
     if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
       setSpeechFeedback("Speech recognition is not supported in this browser.");
       return;
@@ -66,6 +66,19 @@ export default function Activity() {
     if (isListening) return;
 
     try {
+      // Explicitly request microphone permission first to force the prompt on iOS and other devices
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          // Immediately stop the tracks since we only needed to trigger the permission prompt
+          stream.getTracks().forEach(track => track.stop());
+        } catch (err) {
+          console.error("Microphone permission error:", err);
+          setSpeechFeedback("Microphone access denied. Please allow microphone access.");
+          return;
+        }
+      }
+
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       const recognition = new SpeechRecognition();
       recognitionRef.current = recognition;
