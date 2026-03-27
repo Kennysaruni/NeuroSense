@@ -39,13 +39,14 @@ export default function Activity() {
 
     if ('speechSynthesis' in window) {
       setIsPlaying(true);
+      setShowEncouragement(false);
+      setSpeechFeedback('');
+
       const utterance = new SpeechSynthesisUtterance(currentWord.word);
       utterance.rate = 0.85;
 
       utterance.onend = () => {
         setIsPlaying(false);
-        setShowEncouragement(true);
-        setTimeout(() => setShowEncouragement(false), 3000);
       };
 
       utterance.onerror = () => setIsPlaying(false);
