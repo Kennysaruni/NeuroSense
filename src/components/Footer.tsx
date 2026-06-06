@@ -33,11 +33,19 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="mt-8 pt-8 border-t border-slate-800 text-sm text-center md:text-left flex flex-col md:flex-row justify-between items-center">
+        <div className="mt-8 pt-8 border-t border-slate-800 text-sm text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4">
           <p>&copy; {new Date().getFullYear()} NeuroSense Africa. All rights reserved.</p>
-        </div>
-        <div>
-          <p>Developed and Designed by <a href="https://latimore.vercel.app" className='font-semibold underline text-green-500'>Kenny Latimore</a></p>
+          <p className="text-xs text-slate-500">
+            Developed and Designed by{' '}
+            <a 
+              href="https://latimore.vercel.app" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium underline text-slate-400 hover:text-green-500 transition-colors"
+            >
+              Kenny Latimore
+            </a>
+          </p>
         </div>
       </div>
     </footer>
