@@ -57,14 +57,14 @@ export default function Home() {
                 Unlock <span className="text-brand-green">Every</span> <span className="text-brand-blue underline decoration-brand-yellow decoration-wavy decoration-[6px] underline-offset-8">Child's</span> Potential
               </h1>
               <p className="text-xl sm:text-2xl text-slate-700 mb-8 font-medium leading-relaxed">
-                NeuroSense Africa is a fun, welcoming platform supporting children with neurodevelopmental differences. Built for families and schools in Africa!
+                NeuroSense Africa is a comprehensive platform empowering children with neurodevelopmental differences across Africa. Providing structured guides, classroom strategies, and interactive speech tools built for educators, caregivers, and learners.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
-                  href="#early-access"
+                  href="#get-started"
                   className="inline-flex justify-center items-center px-8 py-4 text-xl font-black rounded-2xl text-white bg-brand-blue border-b-[6px] border-blue-800 hover:bg-blue-600 active:border-b-0 active:translate-y-[6px] transition-all drop-shadow-lg"
                 >
-                  Join the Fun!
+                  Get Started
                   <ArrowRight className="ml-3 h-6 w-6" />
                 </a>
                 <Link to="/library"
@@ -96,9 +96,9 @@ export default function Home() {
         <div className="absolute bottom-20 right-20 w-24 h-24 rounded-full bg-brand-teal opacity-30 z-0"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl sm:text-5xl font-black text-slate-800 mb-6 drop-shadow-sm">A Team Effort! 🚀</h2>
+            <h2 className="text-4xl sm:text-5xl font-black text-slate-800 mb-6 drop-shadow-sm">A Complete Support System! 🚀</h2>
             <p className="text-xl text-slate-600 font-medium">
-              We're here to help everyone who supports an amazing child.
+              Empowering schools, caregivers, and children with ready-to-use educational tools, evidence-based guides, and speech training modules.
             </p>
           </div>
 
@@ -109,7 +109,7 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-black text-brand-blue mb-4">Awesome Schools</h3>
               <p className="text-slate-700 font-medium text-lg leading-snug">
-                Resources and fun tools to make classrooms supportive and welcoming for every unique learner!
+                Classroom-ready frameworks, accommodations, and practical strategies that equip teachers and special educators to nurture every learner.
               </p>
             </div>
 
@@ -119,7 +119,7 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-black text-brand-teal mb-4">Super Parents</h3>
               <p className="text-slate-700 font-medium text-lg leading-snug">
-                Easy guides and activities to help you understand and champion your child's superpowers at home.
+                Comprehensive, easy-to-navigate guides and at-home developmental activities to champion your child's growth and confidence.
               </p>
             </div>
 
@@ -129,15 +129,15 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-black text-brand-green mb-4">Amazing Kids</h3>
               <p className="text-slate-700 font-medium text-lg leading-snug">
-                Fun games, colorful stories, and supportive activities to help you shine, practice, and learn!
+                Interactive speech practice, visual-audio associations, and engaging exercises designed to build communication skills playfully.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Early Access Form */}
-      <section id="early-access" className="py-20 bg-slate-900 text-white relative overflow-hidden">
+      {/* Connect / Registration Form */}
+      <section id="get-started" className="py-20 bg-slate-900 text-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
           <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-brand-blue/20 blur-[100px]"></div>
           <div className="absolute -bottom-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-brand-teal/20 blur-[100px]"></div>
@@ -146,9 +146,9 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl">
             <div className="text-center mb-10">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Join NeuroSense Africa</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Connect with NeuroSense Africa</h2>
               <p className="text-lg text-slate-300">
-                Sign up for early access to our platform. We're currently onboarding schools and educators.
+                Partner with our network of schools, educators, and caregivers across Africa. Register to access our full suite of educational resources and specialized support toolkits.
               </p>
             </div>
 
@@ -159,7 +159,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-3xl font-extrabold text-slate-900 mb-3">Thank You!</h3>
                 <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-                  Your request for early access has been received. We'll be in touch soon with next steps.
+                  Your registration has been received. Our team will connect with you shortly with our comprehensive resources and toolkits.
                 </p>
                 <button
                   onClick={() => setIsSubmitted(false)}
@@ -275,7 +275,7 @@ export default function Home() {
                         </>
                       ) : (
                         <>
-                          Request Early Access
+                          Register with NeuroSense
                           <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-2 transition-transform" />
                         </>
                       )}

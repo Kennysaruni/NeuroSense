@@ -17,11 +17,11 @@ An engaging and warmly encouraging interactive module designed specifically for 
 - **Text-to-Speech Integration**: Utilizes Web Speech API for fallback voice synthesis.
 - **Positive Reinforcement**: Built-in encouragement system to reward practice and participation.
 
-### 3. Early Access Portal
-A seamless onboarding form targeted at:
+### 3. School & Community Partner Portal
+A dedicated registration and inquiry portal for schools, educators, and caregivers to access specialized support and toolkits:
 - **Schools & Teachers**: Equipping educators with classroom resources.
 - **Caregivers**: Providing non-diagnostic information for at-home support.
-- **Integrated Backend**: Securely captures user requests and roles via Supabase.
+- **Integrated Backend**: Securely captures partner inquiries and roles via Supabase.
 
 ## Technology Stack
 

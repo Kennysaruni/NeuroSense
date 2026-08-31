@@ -23,8 +23,8 @@ export default function Navbar() {
             <Link to="/" className="text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 px-3 py-2 rounded-lg font-medium transition-all">Home</Link>
             <Link to="/library" className="text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 px-3 py-2 rounded-lg font-medium transition-all">Library</Link>
             <Link to="/activity" className="text-slate-600 hover:text-brand-blue hover:bg-brand-blue/5 px-3 py-2 rounded-lg font-medium transition-all">Speech Practice</Link>
-            <a href="#early-access" className="bg-brand-blue text-white px-7 py-2.5 rounded-full font-medium shadow-[0_4px_14px_0_rgba(26,93,173,0.39)] hover:shadow-[0_6px_20px_rgba(26,93,173,0.23)] hover:bg-blue-800 hover:-translate-y-0.5 transition-all duration-300">
-              Early Access
+            <a href="#get-started" className="bg-brand-blue text-white px-7 py-2.5 rounded-full font-medium shadow-[0_4px_14px_0_rgba(26,93,173,0.39)] hover:shadow-[0_6px_20px_rgba(26,93,173,0.23)] hover:bg-blue-800 hover:-translate-y-0.5 transition-all duration-300">
+              Get Started
             </a>
           </nav>
 
@@ -66,11 +66,11 @@ export default function Navbar() {
               Speech Practice
             </Link>
             <a
-              href="#early-access"
+              href="#get-started"
               className="block px-3 py-2 rounded-md text-base font-medium text-brand-blue hover:bg-slate-50"
               onClick={() => setIsMenuOpen(false)}
             >
-              Early Access
+              Get Started
             </a>
           </div>
         </div>

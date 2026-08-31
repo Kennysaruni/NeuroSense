@@ -35,16 +35,8 @@ export default function Footer() {
         </div>
         <div className="mt-8 pt-8 border-t border-slate-800 text-sm text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4">
           <p>&copy; {new Date().getFullYear()} NeuroSense Africa. All rights reserved.</p>
-          <p className="text-xs text-slate-500">
-            Developed and Designed by{' '}
-            <a 
-              href="https://latimore.vercel.app" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium underline text-slate-400 hover:text-green-500 transition-colors"
-            >
-              Kenny Latimore
-            </a>
+          <p className="text-xs text-slate-400 font-medium">
+            An initiative of Macklemore Solutions
           </p>
         </div>
       </div>
