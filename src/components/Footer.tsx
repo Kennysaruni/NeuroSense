@@ -36,7 +36,7 @@ export default function Footer() {
         <div className="mt-8 pt-8 border-t border-slate-800 text-sm text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4">
           <p>&copy; {new Date().getFullYear()} NeuroSense Africa. All rights reserved.</p>
           <p className="text-xs text-slate-400 font-medium">
-            An initiative of Macklemore Solutions
+            A Digital Health Initiative by <a href="https://macklemoresolutions.com" className='hover:text-white transition-colors'>Macklemore Solutions</a>
           </p>
         </div>
       </div>
