@@ -262,7 +262,7 @@ export default function Home() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full flex justify-center items-center px-8 py-5 text-xl font-black rounded-2xl text-white bg-brand-green border-b-[6px] border-blue-700 hover:bg-blue active:border-b-0 active:translate-y-[6px] transition-all disabled:opacity-70 disabled:cursor-not-allowed shadow-xl group"
+                    className="w-full flex justify-center items-center px-8 py-5 text-xl font-black rounded-2xl text-white bg-brand-green border-b-[6px] border-green-700 hover:bg-green-600 active:border-b-0 active:translate-y-[6px] transition-all disabled:opacity-70 disabled:cursor-not-allowed shadow-xl group cursor-pointer"
                   >
                     <span className="relative flex items-center drop-shadow-sm">
                       {isSubmitting ? (

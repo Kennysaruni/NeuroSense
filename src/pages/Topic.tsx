@@ -1,5 +1,5 @@
-import { ArrowLeft, PlayCircle, PauseCircle } from 'lucide-react';
-import { useState } from 'react';
+import { ArrowLeft, PlayCircle, PauseCircle, Volume2 } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
 const topicsData = {
@@ -66,8 +66,8 @@ const topicsData = {
   'learning-difficulties': {
     title: 'Learning Difficulties',
     description: 'Guidance on dyslexia, dyscalculia, and other specific learning differences.',
-    color: 'text-slate-700',
-    bgColor: 'bg-slate-100',
+    color: 'text-brand-yellow',
+    bgColor: 'bg-brand-yellow/15',
     sections: [
       {
         title: 'What are Specific Learning Difficulties?',
@@ -89,63 +89,115 @@ export default function Topic() {
   const { topicId } = useParams<{ topicId: string }>();
   const topic = topicId ? topicsData[topicId as keyof typeof topicsData] : null;
   const [isPlaying, setIsPlaying] = useState(false);
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+
+  // Stop speech when unmounting
+  useEffect(() => {
+    return () => {
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, []);
 
   if (!topic) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-slate-900 mb-4">Topic not found</h2>
-          <Link to="/library" className="text-brand-blue hover:underline">Return to Library</Link>
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 font-sans">
+        <div className="text-center p-8 bg-white rounded-3xl shadow-lg border border-slate-200">
+          <h2 className="text-3xl font-black text-slate-800 mb-4">Topic not found</h2>
+          <Link
+            to="/library"
+            className="inline-flex items-center px-6 py-3 rounded-2xl bg-brand-blue text-white font-bold hover:bg-blue-700 transition-colors"
+          >
+            <ArrowLeft className="w-5 h-5 mr-2" />
+            Return to Library
+          </Link>
         </div>
       </div>
     );
   }
 
   const toggleAudio = () => {
-    setIsPlaying(!isPlaying);
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+      alert("Text to speech is not supported in this browser.");
+      return;
+    }
 
+    if (isPlaying) {
+      window.speechSynthesis.cancel();
+      setIsPlaying(false);
+    } else {
+      window.speechSynthesis.cancel();
+
+      // Build text string to read
+      const fullText = `${topic.title}. ${topic.description}. ` +
+        topic.sections.map(s => `${s.title}: ${s.content}`).join(' ');
+
+      const utterance = new SpeechSynthesisUtterance(fullText);
+      utterance.rate = 0.85; // Relaxed pace for accessibility
+      utterance.pitch = 1.05;
+
+      utterance.onend = () => setIsPlaying(false);
+      utterance.onerror = () => setIsPlaying(false);
+
+      utteranceRef.current = utterance;
+      setIsPlaying(true);
+      window.speechSynthesis.speak(utterance);
+    }
   };
 
   return (
-    <div className="bg-slate-50 min-h-screen py-12">
+    <div className="bg-slate-50 min-h-screen py-12 font-sans">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <Link to="/library" className="inline-flex items-center text-slate-500 hover:text-brand-blue transition-colors font-medium">
-            <ArrowLeft className="w-5 h-5 mr-2" />
+          <Link
+            to="/library"
+            className="inline-flex items-center text-slate-600 hover:text-brand-blue transition-colors font-bold text-lg"
+          >
+            <ArrowLeft className="w-6 h-6 mr-2" />
             Back to Library
           </Link>
         </div>
 
         <div className="bg-white rounded-[2.5rem] shadow-xl border-4 border-slate-100 overflow-hidden">
-          <div className={`${topic.bgColor} p-8 md:p-12 border-b-8 border-slate-100/50`}>
-            <h1 className={`text-4xl md:text-5xl font-black ${topic.color} mb-4 drop-shadow-sm`}>{topic.title}</h1>
+          <div className={`${topic.bgColor} p-8 md:p-12 border-b-8 border-slate-100/50 relative`}>
+            {/* Playful background accent shapes */}
+            <div className="absolute top-4 right-8 w-16 h-16 rounded-full bg-white/40 blur-xs" />
+            <h1 className={`text-4xl md:text-5xl font-black ${topic.color} mb-4 drop-shadow-sm`}>
+              {topic.title}
+            </h1>
             <p className="text-xl md:text-2xl text-slate-700 max-w-2xl font-bold leading-relaxed">
               {topic.description}
             </p>
 
             <button
               onClick={toggleAudio}
-              className={`mt-8 inline-flex items-center px-8 py-4 rounded-[1.5rem] bg-white text-slate-800 font-black border-b-[5px] border-slate-300 active:border-b-0 active:translate-y-[5px] hover:bg-slate-50 transition-all text-lg`}
+              className="mt-8 inline-flex items-center px-8 py-4 rounded-[1.5rem] bg-white text-slate-800 font-black border-b-[5px] border-slate-300 active:border-b-0 active:translate-y-[5px] hover:bg-slate-50 transition-all text-lg shadow-md cursor-pointer"
             >
               {isPlaying ? (
                 <>
-                  <PauseCircle className={`w-8 h-8 mr-3 ${topic.color}`} />
+                  <PauseCircle className={`w-8 h-8 mr-3 ${topic.color} animate-pulse`} />
                   Pause Audio
                 </>
               ) : (
                 <>
                   <PlayCircle className={`w-8 h-8 mr-3 ${topic.color}`} />
-                  Listen to Guide
+                  Listen to Guide 🎙️
                 </>
               )}
             </button>
           </div>
 
-          <div className="p-8 md:p-12 space-y-12">
+          <div className="p-8 md:p-12 space-y-10">
             {topic.sections.map((section, index) => (
-              <section key={index} className="prose prose-slate max-w-none">
-                <h2 className="text-2xl font-bold text-slate-900 mb-4">{section.title}</h2>
-                <p className="text-lg text-slate-600 leading-relaxed">
+              <section key={index} className="bg-slate-50/60 p-6 md:p-8 rounded-3xl border-2 border-slate-100">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="w-8 h-8 rounded-xl bg-white flex items-center justify-center font-black text-brand-blue shadow-xs border border-slate-200">
+                    {index + 1}
+                  </span>
+                  <h2 className="text-2xl md:text-3xl font-black text-slate-800">{section.title}</h2>
+                </div>
+                <p className="text-lg md:text-xl text-slate-600 font-medium leading-relaxed">
                   {section.content}
                 </p>
               </section>
