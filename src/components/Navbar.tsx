@@ -14,11 +14,12 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <div className="flex items-center">
-            <Link to="/" className="flex items-center gap-2 group">
+            {/* Absolute positioning trick to keep the logo massive without breaking navbar layout bounds */}
+            <Link to="/" className="relative flex items-center h-full w-48 -ml-6 z-10">
               <img
                 src={logo}
                 alt="NeuroSense Africa"
-                className="h-12 w-auto max-h-14 object-contain group-hover:scale-105 transition-transform"
+                className="absolute top-1/2 left-0 -translate-y-1/2 h-64 w-64 max-w-none origin-left"
               />
             </Link>
           </div>
